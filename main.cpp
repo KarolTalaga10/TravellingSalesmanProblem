@@ -136,10 +136,11 @@ std::vector<my_pair> find_zeros_coordinates(matrix m)
     return zeros_coordinates;
 }
 
-std::vector<my_pair> min_apart_from_zero_row(matrix m)
+my_pair min_apart_from_zero(matrix m)
 {
     auto coordinates = find_zeros_coordinates(m);
     std::vector<my_pair> vect_of_mins;
+    my_pair from_to;
     for(const auto& elem : coordinates)
     {
         m[elem.first][elem.second] = INF;
@@ -149,10 +150,19 @@ std::vector<my_pair> min_apart_from_zero_row(matrix m)
         vect_of_mins.push_back(new_pair);
         m[elem.first][elem.second] = 0;
     }
-    return vect_of_mins;
+    double max_from_mins = 0;
+    for(const auto& elem : vect_of_mins)
+    {
+        double sum = elem.first + elem.second;
+        if(sum > max_from_mins)
+        {
+            max_from_mins = sum;
+        }
+    }
+    return from_to;
 }
 
-matrix make_no_entry(int row, int col, matrix m)
+matrix make_no_entry(int row, int col, matrix& m)
 {
     for(int i = 0; i < m.size(); i++)
     {
@@ -197,8 +207,9 @@ matrix tsp(std::vector<std::vector<double>> cost_matrix)
             //auto coordinates = find_zeros_coordinates(cost_matrix);
             //print_vect_of_pairs(coordinates);
             //std::cout<<std::endl;
-            auto mins = min_apart_from_zero_row(cost_matrix);
-            print_vect_of_pairs(mins);
+            //auto mins = min_apart_from_zero(cost_matrix);
+            //print_vect_of_pairs(mins);
+
         }
         i++;
     }
