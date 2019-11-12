@@ -140,7 +140,7 @@ std::vector<std::pair<double, my_pair >> find_zeros_coordinates(matrix m)
 my_pair min_apart_from_zero(matrix m)
 {
     auto coordinates = find_zeros_coordinates(m);
-    for(auto elem : coordinates)
+    for(auto& elem : coordinates)
     {
         m[elem.second.first][elem.second.second] = INF;
         double r_min = find_min_in_a_row(elem.second.first, m);
@@ -149,10 +149,9 @@ my_pair min_apart_from_zero(matrix m)
         elem.first = sum;
         m[elem.second.first][elem.second.second] = 0;
     }
-
     double max_from_mins = coordinates[0].first;
     my_pair from_to = coordinates[0].second; // first - row to delete, second - col to delete
-    for(const auto& elem : coordinates)
+    for(auto elem : coordinates)
     {
         if(elem.first > max_from_mins)
         {
@@ -214,13 +213,11 @@ matrix tsp(std::vector<std::vector<double>> cost_matrix)
 
     std::cout<<"Lower bound: "<<lower_bound<<std::endl;
     return cost_matrix;
-    //    std::vector<int> min_way = sort();
-    //    return min_way;
 }
-//  */
+
 int main() {
 
-    matrix cost_matrix {
+    matrix cos_matrix {
             {INF, 10, 8, 19, 12},
             {10, INF, 20, 6, 3},
             {8, 20, INF, 4, 2},
@@ -235,44 +232,16 @@ int main() {
             {2.0,  6.0,  5.0,  INF,  4.0},
             {7.0,  3.0,  8.0,  6.0,  INF},
     };
-    //std::cout<<std::endl;
-    //print(cost_matrix);
-    //std::cout<<std::endl;
-    //std::cout<<find_min_in_a_row(4,cost_matrix);
-    //std::cout<<find_min_in_a_col(0,mat2)<<std::endl;
-    //std::cout<<find_min_in_a_col(1,mat2)<<std::endl;
-    //std::cout<<find_min_in_a_col(2,mat2)<<std::endl;
-    //std::cout<<find_min_in_a_col(3,mat2)<<std::endl;
-    //std::cout<<find_min_in_a_col(4,mat2)<<std::endl;
-    //std::cout<<is_zero_in_col(0,mat2)<<std::endl;
-    //std::cout<<is_zero_in_col(1,mat2)<<std::endl;
-    //std::cout<<is_zero_in_col(2,mat2)<<std::endl;
-    //std::cout<<is_zero_in_col(3,mat2)<<std::endl;
-    //std::cout<<is_zero_in_col(4,mat2)<<std::endl;
-   /* print(reduce_row(0,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_row(1,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_row(2,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_row(3,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_row(4,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_col(0,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_col(1,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_col(2,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_col(3,cost_matrix));
-    std::cout<<std::endl;
-    print(reduce_col(4,cost_matrix));
-    std::cout<<std::endl;
-*/
-   // bool x = is_zero_in_each_col_and_row(cost_matrix);
-   // std::cout<< x <<std::endl;
-    matrix test = tsp(cost_matrix);
+
+    matrix mat1 {
+            {INF, 12,   3,  45,   6},
+            {78, INF,  90,  21,   3},
+            { 5,  56, INF,  23,  98},
+            {12,   6,   8, INF,  34},
+            { 3,  98,   3,   2, INF}
+    };
+    
+    matrix test = tsp(mat1);
     print(test);
     return 0;
 }
