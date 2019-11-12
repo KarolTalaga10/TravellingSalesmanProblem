@@ -240,7 +240,7 @@ int main() {
             {12,   6,   8, INF,  34},
             { 3,  98,   3,   2, INF}
     };
-    
+
     matrix test = tsp(mat1);
     print(test);
     return 0;
