@@ -118,9 +118,9 @@ matrix reduce_col(int col, matrix& m)
     return m;
 }
 
-std::vector<my_pair> find_zeros_coordinates(matrix m)
+std::vector<std::pair<double, my_pair >> find_zeros_coordinates(matrix m)
 {
-    std::vector<my_pair> zeros_coordinates;
+    std::vector<std::pair<double, my_pair >> zeros_coordinates;
     my_pair pair_index;
     for(int row = 0; row < m.size(); row++)
     {
@@ -129,7 +129,8 @@ std::vector<my_pair> find_zeros_coordinates(matrix m)
             if(m[row][col] == 0)
             {
                 pair_index = std::make_pair(row, col);
-                zeros_coordinates.push_back(pair_index);
+                std::pair<double, my_pair> new_pair = std::make_pair(0, pair_index);
+                zeros_coordinates.push_back(new_pair);
             }
         }
     }
@@ -139,24 +140,24 @@ std::vector<my_pair> find_zeros_coordinates(matrix m)
 my_pair min_apart_from_zero(matrix m)
 {
     auto coordinates = find_zeros_coordinates(m);
-    std::vector<my_pair> vect_of_mins;
-    my_pair from_to;
+    for(auto elem : coordinates)
+    {
+        m[elem.second.first][elem.second.second] = INF;
+        double r_min = find_min_in_a_row(elem.second.first, m);
+        double c_min = find_min_in_a_col(elem.second.second, m);
+        double sum = r_min + c_min;
+        elem.first = sum;
+        m[elem.second.first][elem.second.second] = 0;
+    }
+
+    double max_from_mins = coordinates[0].first;
+    my_pair from_to = coordinates[0].second; // first - row to delete, second - col to delete
     for(const auto& elem : coordinates)
     {
-        m[elem.first][elem.second] = INF;
-        double r_min = find_min_in_a_row(elem.first, m);
-        double c_min = find_min_in_a_col(elem.second, m);
-        auto new_pair = std::make_pair(r_min,c_min);
-        vect_of_mins.push_back(new_pair);
-        m[elem.first][elem.second] = 0;
-    }
-    double max_from_mins = 0;
-    for(const auto& elem : vect_of_mins)
-    {
-        double sum = elem.first + elem.second;
-        if(sum > max_from_mins)
+        if(elem.first > max_from_mins)
         {
-            max_from_mins = sum;
+            max_from_mins = elem.first;
+            from_to = elem.second;
         }
     }
     return from_to;
@@ -172,7 +173,7 @@ matrix make_no_entry(int row, int col, matrix& m)
                 m[i][j] = INF;
         }
     }
-    m[row][col] = INF;
+    m[col][row] = INF;
     return m;
 }
 matrix tsp(std::vector<std::vector<double>> cost_matrix)
@@ -203,13 +204,10 @@ matrix tsp(std::vector<std::vector<double>> cost_matrix)
                     cost_matrix = reduce_col(k,cost_matrix);
                 }
             }
-
-            //auto coordinates = find_zeros_coordinates(cost_matrix);
-            //print_vect_of_pairs(coordinates);
-            //std::cout<<std::endl;
-            //auto mins = min_apart_from_zero(cost_matrix);
-            //print_vect_of_pairs(mins);
-
+            auto mins = min_apart_from_zero(cost_matrix);
+            cost_matrix = make_no_entry(mins.first, mins.second,cost_matrix);
+            print(cost_matrix);
+            std::cout<<std::endl;
         }
         i++;
     }
