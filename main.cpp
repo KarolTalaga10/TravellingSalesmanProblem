@@ -12,7 +12,7 @@ using vect = std::vector<double>;
 using matrix = std::vector<std::vector<double>>;
 using my_pair = std::pair<double,double>;
 #define INF (NAN)
-
+std::vector<my_pair> solution;
 matrix transpose(matrix m)
 {
     matrix transposition_of_matrix(m[0].size(),vect(m.size()));
@@ -159,6 +159,7 @@ my_pair min_apart_from_zero(matrix m)
             from_to = elem.second;
         }
     }
+    solution.push_back(from_to);
     return from_to;
 }
 
@@ -174,6 +175,77 @@ matrix make_no_entry(int row, int col, matrix& m)
     }
     m[col][row] = INF;
     return m;
+}
+/*
+void matrix2x2_fun(matrix m)
+{
+    std::vector<int> row_indexes;
+    std::vector<int> col_indexes;
+    if(!zeros_check_rows())
+    {
+        reduce_all_rows();
+    }
+    if(!zeros_check_cols()){reduce_all_cols();}
+    for(int i = 0; i<m.size() ; i++)
+    {
+        if(is_zero_in_row(i,m))
+            row_indexes.push_back(i);
+        if(is_zero_in_col(i,m))
+            col_indexes.push_back(i);
+    }
+    for(int i = 0; i<row_indexes.size(); i++)
+    {
+        for(int j = 0; j<col_indexes.size() ; j++)
+        {
+            int row_index = row_indexes[i];
+            int col_index = col_indexes[j];
+            int other_row = row_indexes[row_indexes.size() - 1 - i];
+            int other_col = col_indexes[col_indexes.size() - 1 - j];
+            if(std::isnan(m[row_index][col_index])){
+                solution.push_back(std::make_pair(row_index, other_col));
+                solution.push_back(std::make_pair(other_row, col_index));
+            }
+        }
+    }
+}
+*/
+
+std::vector<int>sort_and_give_result()
+{
+    std::vector<my_pair> sorted_vec;
+    my_pair tmp;
+    std::vector<int> vec_results;
+    for (std::size_t i = 0; i < solution.size(); i++)
+    {
+        if (i == 0)
+        {
+            sorted_vec.push_back(solution[i]);
+        }
+        tmp = sorted_vec[i];
+        for (std::size_t j = 0; j < solution.size(); j++)
+        {
+            if (tmp.second == solution[j].first)
+            {
+                sorted_vec.push_back(solution[j]);
+                break;
+            }
+        }
+    }
+
+    for (int i = 0; i < sorted_vec.size(); i++)
+    {
+        vec_results.push_back(std::get<0>(sorted_vec[i])+1);
+    }
+    return vec_results;
+}
+
+void print_solution() {
+
+    for(auto elem: solution)
+    {
+        std:: cout << " ("<<elem.first+1 <<" "<< elem.second+1<<") ";
+    }
+
 }
 matrix tsp(std::vector<std::vector<double>> cost_matrix)
 {
@@ -203,15 +275,19 @@ matrix tsp(std::vector<std::vector<double>> cost_matrix)
                     cost_matrix = reduce_col(k,cost_matrix);
                 }
             }
-            auto mins = min_apart_from_zero(cost_matrix);
-            cost_matrix = make_no_entry(mins.first, mins.second,cost_matrix);
             print(cost_matrix);
-            std::cout<<std::endl;
         }
+        /*
+        std::cout<<"Lower bound: "<<lower_bound<<std::endl;
+        auto mins = min_apart_from_zero(cost_matrix);
+        cost_matrix = make_no_entry(mins.first, mins.second,cost_matrix);
+        print(cost_matrix);
+        std::cout<<std::endl;
+         */
         i++;
     }
 
-    std::cout<<"Lower bound: "<<lower_bound<<std::endl;
+    //std::cout<<"Lower bound: "<<lower_bound<<std::endl;
     return cost_matrix;
 }
 
@@ -241,7 +317,7 @@ int main() {
             { 3,  98,   3,   2, INF}
     };
 
-    matrix test = tsp(mat1);
+    matrix test = tsp(mat2);
     print(test);
     return 0;
 }
