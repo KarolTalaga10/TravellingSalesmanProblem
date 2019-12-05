@@ -47,24 +47,13 @@ RM = "C:\Program Files\JetBrains\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -E 
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\lolo1\Desktop\Github\TravellingSalesmanProblem
+CMAKE_SOURCE_DIR = C:\Users\lolo1\Desktop\STUDIA\INFA\drive_tsp\tsp
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\lolo1\Desktop\Github\TravellingSalesmanProblem\cmake-build-debug
+CMAKE_BINARY_DIR = C:\Users\lolo1\Desktop\STUDIA\INFA\drive_tsp\tsp\cmake-build-debug
 
 #=============================================================================
 # Targets provided globally by CMake.
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	"C:\Program Files\JetBrains\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
 
 # Special rule for the target edit_cache
 edit_cache:
@@ -77,11 +66,22 @@ edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
 
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	"C:\Program Files\JetBrains\CLion 2018.3.4\bin\cmake\win\bin\cmake.exe" -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lolo1\Desktop\Github\TravellingSalesmanProblem\cmake-build-debug\CMakeFiles C:\Users\lolo1\Desktop\Github\TravellingSalesmanProblem\cmake-build-debug\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lolo1\Desktop\STUDIA\INFA\drive_tsp\tsp\cmake-build-debug\CMakeFiles C:\Users\lolo1\Desktop\STUDIA\INFA\drive_tsp\tsp\cmake-build-debug\CMakeFiles\progress.marks
 	$(MAKE) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lolo1\Desktop\Github\TravellingSalesmanProblem\cmake-build-debug\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\lolo1\Desktop\STUDIA\INFA\drive_tsp\tsp\cmake-build-debug\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -110,44 +110,44 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named test
+# Target rules for targets named tsp
 
 # Build rule for target.
-test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles\Makefile2 test
-.PHONY : test
+tsp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles\Makefile2 tsp
+.PHONY : tsp
 
 # fast build rule for target.
-test/fast:
-	$(MAKE) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/build
-.PHONY : test/fast
+tsp/fast:
+	$(MAKE) -f CMakeFiles\tsp.dir\build.make CMakeFiles/tsp.dir/build
+.PHONY : tsp/fast
 
-main.obj: main.cpp.obj
+tsp.obj: tsp.cpp.obj
 
-.PHONY : main.obj
+.PHONY : tsp.obj
 
 # target to build an object file
-main.cpp.obj:
-	$(MAKE) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/main.cpp.obj
-.PHONY : main.cpp.obj
+tsp.cpp.obj:
+	$(MAKE) -f CMakeFiles\tsp.dir\build.make CMakeFiles/tsp.dir/tsp.cpp.obj
+.PHONY : tsp.cpp.obj
 
-main.i: main.cpp.i
+tsp.i: tsp.cpp.i
 
-.PHONY : main.i
+.PHONY : tsp.i
 
 # target to preprocess a source file
-main.cpp.i:
-	$(MAKE) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/main.cpp.i
-.PHONY : main.cpp.i
+tsp.cpp.i:
+	$(MAKE) -f CMakeFiles\tsp.dir\build.make CMakeFiles/tsp.dir/tsp.cpp.i
+.PHONY : tsp.cpp.i
 
-main.s: main.cpp.s
+tsp.s: tsp.cpp.s
 
-.PHONY : main.s
+.PHONY : tsp.s
 
 # target to generate assembly for a file
-main.cpp.s:
-	$(MAKE) -f CMakeFiles\test.dir\build.make CMakeFiles/test.dir/main.cpp.s
-.PHONY : main.cpp.s
+tsp.cpp.s:
+	$(MAKE) -f CMakeFiles\tsp.dir\build.make CMakeFiles/tsp.dir/tsp.cpp.s
+.PHONY : tsp.cpp.s
 
 # Help Target
 help:
@@ -155,12 +155,12 @@ help:
 	@echo ... all (the default if no target is provided)
 	@echo ... clean
 	@echo ... depend
-	@echo ... rebuild_cache
-	@echo ... test
 	@echo ... edit_cache
-	@echo ... main.obj
-	@echo ... main.i
-	@echo ... main.s
+	@echo ... tsp
+	@echo ... rebuild_cache
+	@echo ... tsp.obj
+	@echo ... tsp.i
+	@echo ... tsp.s
 .PHONY : help
 
 

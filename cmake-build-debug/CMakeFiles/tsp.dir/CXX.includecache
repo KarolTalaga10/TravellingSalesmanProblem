@@ -6,9 +6,11 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/lolo1/Desktop/Github/TravellingSalesmanProblem/main.cpp
-iostream
--
+C:/Users/lolo1/Desktop/STUDIA/INFA/drive_tsp/tsp/tsp.cpp
+tsp.hpp
+C:/Users/lolo1/Desktop/STUDIA/INFA/drive_tsp/tsp/tsp.hpp
+
+C:/Users/lolo1/Desktop/STUDIA/INFA/drive_tsp/tsp/tsp.hpp
 iostream
 -
 cstdlib
